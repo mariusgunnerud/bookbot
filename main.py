@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-
+import sys
 from stats import count_words,character_count
 from collections import OrderedDict
 
-def get_book_text():
-    with open("books/frankenstein.txt") as book:
+def get_book_text(title):
+    with open(title) as book:
         file_contents = book.read()
     return file_contents
 
@@ -20,6 +20,12 @@ def report(data):
             print(f"{i}: {sorted_dict[i]}")
     print(f"============ END ============")
 
-frankenstein = get_book_text()
+if len(sys.argv) < 2:
+    print(f"Usage: python3 main.py <path_to_book>")
+    sys.exit(1)
+    
+path = sys.argv[1]
+
+frankenstein = get_book_text(path)
 num_words = count_words(frankenstein)
 report(character_count(frankenstein))
